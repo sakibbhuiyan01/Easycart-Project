@@ -1,0 +1,32 @@
+{
+  "name": "easycart-server",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "tsx watch server.js",
+    "start": "tsx server.js",
+    "build": "prisma generate",
+    "db:deploy": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:setup": "prisma generate && prisma migrate dev --name init",
+    "seed": "tsx prisma/seed.js",
+    "admin": "tsx createAdmin.js",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "prisma": "7.10.0",
+    "tsx": "^4.19.0"
+  }
+}
