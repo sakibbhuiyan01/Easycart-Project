@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "@prisma/client";
 
 // Prisma 7 needs a driver adapter. One client for the whole process.
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL, max: process.env.VERCEL ? 1 : 10 });
