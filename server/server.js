@@ -20,18 +20,19 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 app.use((req, res) => res.status(404).json({ message: "Route not found" }));
 
-// On Vercel the platform runs the app itself; locally we start a normal server
+// Local only: Vercel runs the exported app itself.
 if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 5000;
-  try {
-    await prisma.$connect();
-    console.log("PostgreSQL connected");
-  } catch (e) {
-    console.error("Database connection failed:", e.message);
-    console.error("Check DATABASE_URL in server/.env and that PostgreSQL is running.");
-    process.exit(1);
-  }
-  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  prisma
+    .$connect()
+    .then(() => {
+      console.log("PostgreSQL connected");
+      app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+    })
+    .catch((e) => {
+      console.error("Database connection failed:", e.message);
+      process.exit(1);
+    });
 }
 
 export default app;
